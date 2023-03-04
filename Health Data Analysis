@@ -1,0 +1,111 @@
+-- What is the street numbers of all facilities on streets whose names start with avenue?
+Use odhf;
+
+Select index_id,
+       facility_name,
+       street_no as street_number,
+       street_name
+From odhf_v1
+Where street_name Like "avenue%"
+Order by facility_name
+------------------------------------------------------------------------------------------------------------------------------
+
+-- How many facilities do not have street number and street name?
+Use odhf;
+
+Select count(facility_name)
+From odhf_v1
+Where street_name and street_no is null
+-----------------------------------------------------------------------------------------------------------------------------
+
+-- Find all facilities that do not have postal code
+Use odhf;
+
+Select *
+From odhf_v1
+Where postal_code is Null
+Order by facility_name
+----------------------------------------------------------------------------------------------------------------------------
+
+-- How many facilities are in qc province?
+Use odhf;
+
+Select count(facility_name)
+From odhf_v1
+Where province ="qc"
+---------------------------------------------------------------------------------------------------------------------------
+
+-- Find all facilities that has Hospital as facility type
+Use odhf;
+
+Select *
+From odhf_v1
+Where odhf_facility_type Like "%Hospitals%"
+Order by facility_name
+--------------------------------------------------------------------------------------------------------------------------
+
+-- Find all facilities that do not have a null value in its records
+Use odhf;
+
+Select *
+From odhf_v1
+Where unit and source_facility_type is not null
+
+-- Almost all facilities do not have units, so i used "Is Not Null" to filter the units. Two of the results that were returned has null values, so i had to filter again by adding the "And" clause
+--------------------------------------------------------------------------------------------------------------------------
+
+-- Show all facilities whos names sarts with C
+Use odhf;
+
+Select *
+From odhf_v1
+Where facility_name Like "C%"
+Order by facility_name
+-------------------------------------------------------------------------------------------------------------------------
+
+-- Show all facilities that have "Community" in its name.
+Use odhf;
+
+Select *
+From odhf_v1
+Where facility_name Like "%community%"
+Order by facility_name
+--------------------------------------------------------------------------------------------------------------------------
+
+-- What is the total number of records in the odhf_v1 table?
+Use odhf;
+
+Select count(*)
+From odhf_v1
+------------------------------------------------------------------------------------------------------------------------
+
+-- How many facilities have its details provided by Public Health Agency of Canada?
+Use odhf;
+
+Select count(facility_name) as number_of_facilities
+From odhf_v1
+Where provider = "Public Health Agency Of Canada"
+----------------------------------------------------------------------------------------------------------------------
+
+-- How many null values are in the table?
+Use odhf;
+
+Select count(*) as null_count
+From odhf_v1
+Where index_id is null
+	or facility_name is null
+    or source_facility_type is null
+    or odhf_facility_type is null
+    or provider is null
+    or unit is null
+    or street_no is null
+    or street_name is null
+    or postal_code is null
+    or city is null
+    or province is null
+    or source_format_str_address is null
+    or CSDname is null
+    or CSDuid is null
+    or Pruid is null
+	or latitude is null
+    or longitude is null
